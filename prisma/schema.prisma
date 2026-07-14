@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// A blog post / article.
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String   @default("") // Markdown body
+  coverImage  String?
+  author      String   @default("Staff")
+  category    String   @default("General")
+  tags        String   @default("") // comma-separated tags
+  published   Boolean  @default(false)
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published])
+  @@index([createdAt])
+}
+
+// Editable site-wide settings (one row, id = "default").
+model SiteSetting {
+  id        String   @id @default("default")
+  siteName  String   @default("The Dispatch")
+  tagline   String   @default("Independent stories, sharp perspectives.")
+  about     String   @default("# About\n\nWelcome to our publication. This text is editable from the admin panel — no code required.")
+  accent    String   @default("#c1272d") // hex accent color
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

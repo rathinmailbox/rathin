@@ -1,0 +1,91 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+!.env.example
+
+# vercel
+.vercel
+
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+local-*
+.claude
+.z-ai-config
+*.log
+dev.log
+dev.out.log
+test
+prompt
+
+server.log
+# Skills directory
+/skills/
+
+# Database — local SQLite dev database, binary & changes constantly.
+# Keep it out of git; each environment gets its own via `bun run db:push`.
+/db/*.db
+/db/*.db-journal
+
+# AI-generated cover images (created at runtime by the admin panel).
+/public/covers/
+
+# Agent context / work artifacts
+/agent-ctx/
+/tool-results/
+/worklog.md
+
+# Screenshots / reference images (dev-only, never commit).
+# But keep legitimate site images in public/.
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+!public/**
+!public/**/*
+
+# Uploads (reference files dropped in during development)
+/upload/
+
+# Infrastructure specific to the dev sandbox (not part of the blog)
+/Caddyfile
+/.zscripts/
+/download/
+/examples/
+/mini-services/
+
+# Dev test scripts
+/scripts/test-remark.ts

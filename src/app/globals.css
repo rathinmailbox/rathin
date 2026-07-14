@@ -1,0 +1,847 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--fontFamilyHeadingSerif), Georgia, "Times New Roman", serif;
+  --font-headline: var(--fontFamilyHeadingSansSerif), "Arial Black", sans-serif;
+  --color-brand: var(--brand);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ---- Editorial blog additions ---- */
+:root {
+  --brand: #c1272d;
+  --fontWeightLight: 300;
+  --fontWeightBold: 700;
+  /*
+   * Gawker-style font system. The next/font CSS variables (--font-frank-ruhl,
+   * --font-anton) are applied to <html> by the layout, so they're available
+   * here at :root. Etna is a commercial web font; we use a free proxy
+   * (Frank Ruhl Libre). Arial Black is a system font; Anton is the free fallback.
+   */
+  --fontFamilyHeadingSerif: var(--font-frank-ruhl), "Frank Ruhl Libre", "Etna", Georgia, serif;
+  --fontFamilyHeadingSansSerif: "Arial Black", var(--font-anton), "Anton", "Helvetica Neue", sans-serif;
+  --fontFamilySerif: Georgia, serif;
+  --fontFamilySansSerif: Arial, sans-serif;
+}
+
+/* Custom scrollbar for long lists */
+.scroll-fade::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scroll-fade::-webkit-scrollbar-thumb {
+  background: oklch(0.8 0 0);
+  border-radius: 9999px;
+}
+.dark .scroll-fade::-webkit-scrollbar-thumb {
+  background: oklch(0.4 0 0);
+}
+
+/* Article (markdown) typography */
+.prose-article {
+  font-size: 1.075rem;
+  line-height: 1.8;
+  color: oklch(0.27 0 0);
+}
+.dark .prose-article {
+  color: oklch(0.9 0 0);
+}
+.prose-article > * + * {
+  margin-top: 1.25rem;
+}
+.prose-article h1,
+.prose-article h2,
+.prose-article h3,
+.prose-article h4 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.2;
+  color: oklch(0.15 0 0);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.dark .prose-article h1,
+.dark .prose-article h2,
+.dark .prose-article h3,
+.dark .prose-article h4 {
+  color: oklch(0.98 0 0);
+}
+.prose-article h1 {
+  font-size: 2.1rem;
+}
+.prose-article h2 {
+  font-size: 1.6rem;
+}
+.prose-article h3 {
+  font-size: 1.3rem;
+}
+.prose-article a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.prose-article a:hover {
+  opacity: 0.8;
+}
+.prose-article blockquote {
+  border-left: 3px solid var(--brand);
+  padding-left: 1.1rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: oklch(0.4 0 0);
+}
+.dark .prose-article blockquote {
+  color: oklch(0.75 0 0);
+}
+.prose-article ul,
+.prose-article ol {
+  padding-left: 1.4rem;
+}
+.prose-article ul {
+  list-style: disc;
+}
+.prose-article ol {
+  list-style: decimal;
+}
+.prose-article li {
+  margin-top: 0.4rem;
+}
+.prose-article img {
+  width: 100%;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+.prose-article code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: oklch(0.96 0 0);
+  padding: 0.15em 0.4em;
+  border-radius: 0.3rem;
+}
+.dark .prose-article code {
+  background: oklch(0.3 0 0);
+}
+.prose-article pre {
+  background: oklch(0.17 0 0);
+  color: oklch(0.95 0 0);
+  padding: 1rem 1.2rem;
+  border-radius: 0.6rem;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.prose-article pre code {
+  background: transparent;
+  padding: 0;
+}
+.prose-article hr {
+  border: none;
+  border-top: 1px solid oklch(0.9 0 0);
+  margin: 2rem 0;
+}
+.dark .prose-article hr {
+  border-top-color: oklch(0.3 0 0);
+}
+.prose-article table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.prose-article th,
+.prose-article td {
+  border: 1px solid oklch(0.88 0 0);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.dark .prose-article th,
+.dark .prose-article td {
+  border-color: oklch(0.35 0 0);
+}
+
+
+/* ---- Gawker-style redesign ---- */
+
+/* Flat barely-gray page background (applied via the Shell wrapper). */
+.page-bg {
+  background-color: #f5f5f5;
+}
+
+/* Giant masthead wordmark. SERIF + extra-extra-extra bold (900), sized so
+   large that it is only PARTIALLY visible — it bleeds off both edges of the
+   viewport (overflow hidden), like the Gawker reference. Lowercase (no
+   text-transform). The top ~10% is cropped by the page top via a negative
+   top margin + overflow-hidden header. */
+.masthead-header {
+  overflow: hidden;
+}
+.masthead-title {
+  font-family: var(--fontFamilyHeadingSerif);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  text-align: center;
+  margin: 0;
+  /* Crop the top ~10%: pull up by 0.1em (relative to font-size) and clip
+     via the overflow-hidden header. */
+  margin-top: -0.1em;
+  padding: 0;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  /* Oversized: the wordmark is wider than the viewport and crops at the edges. */
+  font-size: clamp(7rem, 26vw, 22rem);
+}
+.masthead-title a {
+  color: inherit;
+  text-decoration: none;
+}
+.masthead-title a:hover {
+  opacity: 0.6;
+}
+/* The base text link ("rathin") — separate from the period easter-egg link
+   to avoid invalid nested <a> tags. */
+.masthead-base-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Easter-egg: hovering the period reveals a faded gray question mark that
+   links to /about. The question mark sits UNDER the real period — only its
+   curve shows above, and its own dot tucks just beneath the real period.
+   The real period stays visible the whole time. */
+.masthead-period {
+  position: relative;
+  display: inline;
+}
+.masthead-question {
+  position: absolute;
+  /* Extend the clickable area vertically so the whole question mark (including
+     the upper curve that rises above the period's box) is clickable. The
+     bottom stays anchored at the period baseline. */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Tall enough to cover the full ? glyph height (it's ~0.7em tall). */
+  top: -0.6em;
+  height: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  /* Nudge the ? glyph down so its dot sits just under the real period and
+     only the curve peeks out above it. */
+  transform: translate(0.029em, -0.245em);
+  /* Faded pressed-down gray. Set explicitly (with !important) so it isn't
+     affected by any inherited color. */
+  color: oklch(0.55 0 0) !important;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  text-decoration: none;
+  pointer-events: none;
+  /* Behind the real period dot so the ?'s own dot is hidden under it. */
+  z-index: 1;
+  /* No horizontal padding — the link occupies the period's width. */
+  padding: 0;
+}
+.masthead-period:hover .masthead-question {
+  opacity: 1;
+  pointer-events: auto;
+}
+/* The real period dot renders on top of the question mark's dot, so only
+   the ? curve shows above the period. */
+.masthead-period-dot {
+  position: relative;
+  z-index: 2;
+}
+
+/* News-list article item: thumbnail + centered headline + meta row. */
+.news-item {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  margin: 0 auto 3.5rem;
+  border-top: 1px solid oklch(0.9 0 0);
+  padding-top: 2rem;
+}
+.news-item .news-thumb {
+  width: 168px;
+  margin: 0 auto 1rem;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: oklch(0.95 0 0);
+}
+.news-item .news-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.news-item .news-headline {
+  font-family: var(--fontFamilyHeadingSansSerif);
+  font-weight: var(--fontWeightBold);
+  text-transform: uppercase;
+  letter-spacing: -0.05rem;
+  line-height: 0.98;
+  font-size: 1.8rem;
+  text-align: center;
+  margin: 0 auto 0.75rem;
+  max-width: 442px;
+  width: 85%;
+  transition: color 0.15s ease;
+}
+.news-item:hover .news-headline {
+  color: var(--brand);
+}
+.news-item .news-subhead {
+  font-family: var(--fontFamilySerif);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: center;
+  margin: 0 auto 1.25rem;
+  max-width: 520px;
+  color: oklch(0.35 0 0);
+}
+.news-item .news-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: flex-end;
+  font-family: var(--fontFamilyHeadingSerif);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--brand);
+  max-width: 760px;
+  margin: 0 auto;
+}
+.news-item .news-meta > :nth-child(1) { text-align: left; }
+.news-item .news-meta > :nth-child(2) { text-align: center; }
+.news-item .news-meta > :nth-child(3) { text-align: right; }
+
+@media (min-width: 768px) {
+  .news-item .news-thumb { width: 220px; }
+  .news-item .news-headline { font-size: 2rem; }
+}
+@media (min-width: 1025px) {
+  .news-item .news-thumb { width: 259px; }
+  .news-item .news-headline { font-size: 2.5rem; max-width: 636px; }
+  .news-item .news-meta { font-size: 1.25rem; }
+}
+
+/* Footer nav — big centered section links. */
+.footer-nav-big {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 1.5rem 3rem;
+}
+.footer-nav-big a {
+  font-family: var(--fontFamilyHeadingSansSerif);
+  text-transform: uppercase;
+  letter-spacing: -0.04rem;
+  font-size: clamp(1.6rem, 5vw, 3.5rem);
+  line-height: 1;
+  color: #000;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.footer-nav-big a:hover {
+  color: var(--brand);
+}
+.footer-copy {
+  font-family: var(--fontFamilySansSerif);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: oklch(0.45 0 0);
+  text-align: center;
+}
+
+/* ---- Article hero (full-screen, wordmark at top, inset image) ---- */
+
+/* The hero fills the viewport. Slight red tint. Flex column: wordmark at
+   the top, then image + title below. Padding insets the content. */
+.article-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(193, 39, 45, 0.045);
+  overflow: hidden;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+/* Wordmark at the TOP of the hero — big serif (900), left-aligned, bleeds
+   off the right edge. */
+.article-wordmark-top {
+  font-family: var(--fontFamilyHeadingSerif);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: #000;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: clamp(5rem, 16vw, 13rem);
+  text-align: left;
+}
+.article-wordmark-top a {
+  color: inherit;
+  text-decoration: none;
+}
+.article-wordmark-top a:hover {
+  opacity: 0.6;
+}
+
+/* Content row: image (left) + title (right). Top-aligned. */
+.article-hero-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  flex: 1;
+  align-items: start;
+}
+@media (min-width: 768px) {
+  .article-hero-content {
+    grid-template-columns: 3fr 2fr;
+  }
+}
+
+/* Cover image column — inset within the hero, top-aligned. */
+.article-cover-col {
+  position: relative;
+  width: 100%;
+  height: 45vh;
+  overflow: hidden;
+  background: #d8d8d8;
+}
+.article-cover-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.article-cover-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #d8d8d8;
+}
+@media (min-width: 768px) {
+  .article-cover-col {
+    height: calc(100vh - 12rem);
+  }
+}
+
+/* Title block — to the right of the image on desktop, right-aligned.
+   TOP-aligned. On mobile stacks below. */
+.article-title-block {
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 768px) {
+  .article-title-block {
+    padding: 0 1rem 0 1rem;
+    text-align: right;
+    align-items: flex-end;
+  }
+}
+
+.article-h1 {
+  font-family: var(--fontFamilyHeadingSansSerif);
+  font-weight: var(--fontWeightBold);
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  margin: 0 0 1rem;
+  color: #000;
+  max-width: 620px;
+}
+.article-dek {
+  font-family: var(--fontFamilySerif);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  margin: 0 0 1.5rem;
+  max-width: 520px;
+  color: oklch(0.25 0 0);
+}
+
+/* Byline row. */
+.article-byline-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: end;
+  gap: 0.75rem;
+  max-width: 520px;
+  width: 100%;
+  font-family: var(--fontFamilyHeadingSerif);
+  font-weight: var(--fontWeightLight);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--brand);
+  font-size: 0.85rem;
+}
+.article-byline-grid > :nth-child(1) { text-align: left; }
+.article-byline-grid > :nth-child(2) { text-align: center; }
+.article-byline-grid > :nth-child(3) { text-align: right; }
+.article-byline-grid .byline-label {
+  display: block;
+  font-family: var(--fontFamilySansSerif);
+  font-size: 0.55rem;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: oklch(0.45 0 0);
+  margin-bottom: 0.15rem;
+  font-weight: normal;
+}
+@media (min-width: 768px) {
+  .article-byline-grid { font-size: 1.1rem; }
+}
+
+/* Article body — Georgia serif (same as the dek/subtitle). The container is
+   wide enough to hold a text column + a sidenote margin on the right. */
+.article-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+  font-family: var(--fontFamilySerif), Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: oklch(0.2 0 0);
+  /* Counter for auto-numbering sidenotes (Tufte CSS technique). */
+  counter-reset: sidenote-counter;
+}
+/* The prose text column — narrower than the container to leave room for
+   sidenotes in the right margin. */
+.article-body .prose-article {
+  max-width: 620px;
+}
+.article-body h1,
+.article-body h2,
+.article-body h3,
+.article-body h4 {
+  font-family: var(--fontFamilyHeadingSansSerif);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: #000;
+}
+.article-body h1 { font-size: 2rem; }
+.article-body h2 { font-size: 1.6rem; }
+.article-body h3 { font-size: 1.3rem; }
+.article-body a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.article-body blockquote {
+  border-left: 3px solid var(--brand);
+  padding-left: 1rem;
+  font-style: italic;
+  margin: 1.5rem 0;
+  color: oklch(0.35 0 0);
+}
+.article-body ul,
+.article-body ol {
+  padding-left: 1.4rem;
+  margin: 1rem 0;
+}
+.article-body ul { list-style: disc; }
+.article-body ol { list-style: decimal; }
+.article-body li { margin-top: 0.3rem; }
+.article-body img {
+  width: 100%;
+  border-radius: 0.4rem;
+  margin: 1.5rem 0;
+}
+.article-body code {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.9em;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 0.1em 0.35em;
+  border-radius: 0.25rem;
+}
+.article-body pre {
+  background: oklch(0.17 0 0);
+  color: oklch(0.95 0 0);
+  padding: 1rem 1.2rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  margin: 1.5rem 0;
+}
+.article-body pre code {
+  background: transparent;
+  padding: 0;
+}
+.article-body hr {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  margin: 2rem 0;
+}
+
+/* ---- Tufte CSS sidenotes (margin footnotes) ---- */
+
+/* The hidden checkbox that tracks toggle state. Hidden on all screen sizes. */
+.article-body input.margin-toggle {
+  display: none;
+  opacity: 0;
+  position: absolute;
+}
+
+/* The superscript number label. On wide screens it shows the number; on
+   narrow screens it's a clickable toggle. */
+.article-body label.margin-toggle {
+  display: inline;
+}
+.article-body label.sidenote-number {
+  counter-increment: sidenote-counter;
+}
+.article-body label.sidenote-number::after {
+  content: counter(sidenote-counter);
+  font-size: 0.7em;
+  vertical-align: super;
+  line-height: 0;
+  color: var(--brand);
+  cursor: pointer;
+  margin-left: 0.1em;
+}
+
+/* The sidenote itself. On wide screens it floats into the right margin. */
+.article-body .sidenote {
+  float: right;
+  clear: right;
+  margin-right: -260px;
+  width: 230px;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: oklch(0.3 0 0);
+  position: relative;
+  padding-left: 0.5rem;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* On narrow screens, hide sidenotes and show them inline when toggled. */
+@media (max-width: 900px) {
+  .article-body {
+    max-width: 100%;
+    padding: 3rem 1.25rem 4rem;
+  }
+  .article-body .prose-article {
+    max-width: 100%;
+  }
+  .article-body .sidenote {
+    display: none;
+    float: none;
+    width: 100%;
+    margin: 0.75rem 0;
+    padding: 0.75rem 0 0 0.75rem;
+    border-left: 2px solid var(--brand);
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 0 0.25rem 0.25rem 0;
+  }
+  .article-body input.margin-toggle:checked + .sidenote {
+    display: block;
+  }
+}
+
+/* ---- Dark mode overrides for the Gawker-style redesign ---- */
+.dark .page-bg {
+  background-color: oklch(0.145 0 0);
+}
+.dark .masthead-title,
+.dark .masthead-base-link,
+.dark .masthead-period-dot,
+.dark .article-wordmark-top {
+  color: oklch(0.97 0 0);
+}
+.dark .article-hero {
+  background-color: rgba(193, 39, 45, 0.12);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+.dark .article-cover-col,
+.dark .article-cover-placeholder {
+  background: oklch(0.25 0 0);
+}
+.dark .article-h1 {
+  color: oklch(0.97 0 0);
+}
+.dark .article-dek {
+  color: oklch(0.78 0 0);
+}
+.dark .article-byline-grid .byline-label {
+  color: oklch(0.62 0 0);
+}
+.dark .article-body {
+  color: oklch(0.88 0 0);
+}
+.dark .article-body .prose-article,
+.dark .article-body p {
+  color: oklch(0.88 0 0);
+}
+.dark .article-body h1,
+.dark .article-body h2,
+.dark .article-body h3,
+.dark .article-body h4 {
+  color: oklch(0.97 0 0);
+}
+.dark .article-body blockquote {
+  color: oklch(0.72 0 0);
+}
+.dark .article-body .sidenote {
+  color: oklch(0.72 0 0);
+  border-left-color: rgba(255, 255, 255, 0.15);
+}
+.dark .article-body hr {
+  border-top-color: rgba(255, 255, 255, 0.15);
+}
+.dark .news-item {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+.dark .news-item .news-thumb {
+  background: oklch(0.25 0 0);
+}
+.dark .news-item .news-subhead {
+  color: oklch(0.72 0 0);
+}
+.dark .footer-nav-big a {
+  color: oklch(0.92 0 0);
+}
+.dark .footer-copy {
+  color: oklch(0.62 0 0);
+}
+.dark footer {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
