@@ -59,7 +59,7 @@ export function AdminLogin({ onLoggedIn }: { onLoggedIn: () => void }) {
           <div className="mx-auto mb-3 flex size-11 items-center justify-center rounded-full bg-[var(--brand)]/10 text-[var(--brand)]">
             <LockKeyhole className="size-5" />
           </div>
-          <CardTitle className="font-serif text-2xl">The Dispatch</CardTitle>
+          <CardTitle className="font-serif text-2xl">rathin.</CardTitle>
           <CardDescription>Sign in to the admin panel</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>

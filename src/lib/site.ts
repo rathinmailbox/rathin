@@ -18,7 +18,7 @@ export interface SiteSettings {
 }
 
 const DEFAULTS: SiteSettings = {
-  siteName: 'The Dispatch',
+  siteName: 'rathin.',
   tagline: 'Independent stories, sharp perspectives.',
   about:
     '# About\n\nWelcome to our publication. This text is editable from the admin panel — no code required.',

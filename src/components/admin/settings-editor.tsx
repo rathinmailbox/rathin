@@ -125,7 +125,7 @@ export function SettingsEditor({ onDone }: { onDone: () => void }) {
             id="siteName"
             value={siteName}
             onChange={(e) => setSiteName(e.target.value)}
-            placeholder="The Dispatch"
+            placeholder="rathin."
           />
         </div>
 
