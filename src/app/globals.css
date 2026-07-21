@@ -644,6 +644,26 @@
 .article-body .prose-article {
   max-width: 620px;
 }
+/* Inline ads break out of the centered .article-body column to span the full
+   viewport width. This works because .article-body is `margin: 0 auto`, so
+   its edges are equidistant from the viewport — the 50vw trick re-centers. */
+.article-body-content {
+  width: 100%;
+}
+.article-body-block > * + * {
+  margin-top: 1.25rem;
+}
+.inline-ad-fullbleed {
+  width: 100vw;
+  max-width: 100vw;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+.inline-ad-fullbleed > * + * {
+  margin-top: 0; /* stacked ads sit flush against each other */
+}
 .article-body h1,
 .article-body h2,
 .article-body h3,
@@ -844,4 +864,65 @@
 }
 .dark footer {
   border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- Scrolling marquee advertisements ---------- */
+.marquee-ad {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 0.6rem 0;
+  user-select: none;
+}
+.marquee-ad__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.marquee-ad__track {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  will-change: transform;
+  /* Default duration; overridden inline per-ad via `speed`. */
+  animation-name: marquee-ad-scroll;
+  animation-duration: 20s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  /* Track never blocks reading/scrolling; the optional link is the only
+     clickable surface. */
+  pointer-events: none;
+}
+.marquee-ad__link .marquee-ad__track {
+  pointer-events: auto;
+}
+.marquee-ad__item {
+  display: inline-flex;
+  align-items: center;
+  padding-right: 0;
+}
+.marquee-ad__sep {
+  opacity: 0.7;
+  font-weight: 400;
+}
+@keyframes marquee-ad-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Two identical copies, so -50% lands seamlessly at the start. */
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-ad__track {
+    animation: none;
+    transform: translateX(0);
+  }
 }

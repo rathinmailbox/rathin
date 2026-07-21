@@ -3,6 +3,7 @@ import { format } from 'date-fns'
 
 import type { Post } from '@/lib/types'
 import { navPath } from '@/lib/nav'
+import { HomeAds } from './home-ads'
 
 /**
  * HomeView — a simple Gawker-style vertical list of the latest stories.
@@ -22,23 +23,27 @@ export function HomeView({ posts }: { posts: Post[] }) {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
-      {posts.map((post) => (
-        <Link key={post.id} href={navPath('article', { slug: post.slug })} className="news-item">
-          {post.coverImage ? (
-            <div className="news-thumb">
-              <img src={post.coverImage} alt="" loading="lazy" />
+    <>
+      <div className="mx-auto max-w-3xl px-4 py-8">
+        {posts.map((post) => (
+          <Link key={post.id} href={navPath('article', { slug: post.slug })} className="news-item">
+            {post.coverImage ? (
+              <div className="news-thumb">
+                <img src={post.coverImage} alt="" loading="lazy" />
+              </div>
+            ) : null}
+            <p className="news-headline">{post.title}</p>
+            {post.excerpt ? <p className="news-subhead">{post.excerpt}</p> : null}
+            <div className="news-meta">
+              <span>{post.category}</span>
+              <span>By {post.author}</span>
+              <time dateTime={post.createdAt}>{format(new Date(post.createdAt), 'MMM d, yyyy')}</time>
             </div>
-          ) : null}
-          <p className="news-headline">{post.title}</p>
-          {post.excerpt ? <p className="news-subhead">{post.excerpt}</p> : null}
-          <div className="news-meta">
-            <span>{post.category}</span>
-            <span>By {post.author}</span>
-            <time dateTime={post.createdAt}>{format(new Date(post.createdAt), 'MMM d, yyyy')}</time>
-          </div>
-        </Link>
-      ))}
-    </div>
+          </Link>
+        ))}
+      </div>
+      {/* Scrolling homepage ads stack vertically at the bottom. */}
+      <HomeAds />
+    </>
   )
 }

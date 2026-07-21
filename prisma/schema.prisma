@@ -26,6 +26,8 @@ model Post {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  advertisements Advertisement[]
+
   @@index([published])
   @@index([createdAt])
 }
@@ -35,8 +37,31 @@ model SiteSetting {
   id        String   @id @default("default")
   siteName  String   @default("rathin.")
   tagline   String   @default("A blog on critical thought and populist politics.")
-  about     String   @default("# About\n\nWelcome to my blog. I write here bimonthly, of which my chosen definition of "bimonthly" varies by my whim. Conatined here are my inchoate thoughts on heterodox economics, legal theory, sociology, and technology (sometimes all at once). I hope you find the content edifying and the prose bareable.")
+  about     String   @default("# About\\n\\nWelcome to my blog. I write here bimonthly, of which my chosen definition of bimonthly varies by my whim. Contained here are my inchoate thoughts on heterodox economics, legal theory, sociology, and technology (sometimes all at once). I hope you find the content edifying and the prose bearable.")
   accent    String   @default("#c1272d") // hex accent color
+  adColor   String   @default("#ff0000") // scrolling ad text color
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// Scrolling advertisements.
+model Advertisement {
+  id           String   @id @default(cuid())
+  text         String // The scrolling ad text
+  link         String? // Optional URL the ad opens when clicked
+  bgColor      String   @default("#ff0000") // banner background (hex)
+  textColor    String   @default("#ffffff") // banner text color (hex)
+  speed        Int      @default(20) // seconds per pass — lower = faster
+  placement    String   @default("home") // "home" | "inline"
+  postId       String? // set when placement = "inline" (which article)
+  paragraphNum Int? // 1-based: insert AFTER paragraph N (0 = top of body)
+  enabled      Boolean  @default(true)
+  order        Int      @default(0) // sort order for stacking multiple ads
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  post Post? @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([enabled, placement, order])
+  @@index([postId])
 }

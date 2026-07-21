@@ -5,6 +5,7 @@ import {
   ExternalLink,
   Loader2,
   LogOut,
+  Megaphone,
   MoreHorizontal,
   Pencil,
   Plus,
@@ -52,11 +53,13 @@ export function AdminDashboard({
   onEditPost,
   onNewPost,
   onOpenSettings,
+  onOpenAds,
   onLoggedOut,
 }: {
   onEditPost: (id: string) => void
   onNewPost: () => void
   onOpenSettings: () => void
+  onOpenAds: () => void
   onLoggedOut: () => void
 }) {
   const { toast } = useToast()
@@ -147,6 +150,9 @@ export function AdminDashboard({
         <div className="flex flex-wrap items-center gap-2">
           <Button onClick={onNewPost} className="bg-[var(--brand)] text-white hover:bg-[var(--brand)]/90">
             <Plus /> New post
+          </Button>
+          <Button variant="outline" onClick={onOpenAds}>
+            <Megaphone /> Ads
           </Button>
           <Button variant="outline" onClick={onOpenSettings}>
             <SettingsIcon /> Settings

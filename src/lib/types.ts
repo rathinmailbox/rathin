@@ -23,4 +23,24 @@ export interface SiteSettings {
   accent: string
 }
 
+/** Where a scrolling ad can appear. */
+export type AdPlacement = 'home' | 'inline'
+
+/** A scrolling advertisement, with dates serialized as ISO strings. */
+export interface Advertisement {
+  id: string
+  text: string
+  link: string | null
+  bgColor: string
+  textColor: string
+  speed: number
+  placement: AdPlacement
+  postId: string | null
+  paragraphNum: number | null
+  enabled: boolean
+  order: number
+  createdAt: string
+  updatedAt: string
+}
+
 export type View = 'home' | 'article' | 'about' | 'admin'

@@ -9,8 +9,9 @@ import { AdminLogin } from './admin-login'
 import { AdminDashboard } from './admin-dashboard'
 import { PostEditor } from './post-editor'
 import { SettingsEditor } from './settings-editor'
+import { AdsManager } from './ads-manager'
 
-type SubView = 'dashboard' | 'editor' | 'settings'
+type SubView = 'dashboard' | 'editor' | 'settings' | 'ads'
 
 /**
  * Root admin component. Renders login, dashboard, editor, or settings
@@ -115,6 +116,7 @@ export default function AdminApp() {
               setSubView('editor')
             }}
             onOpenSettings={() => setSubView('settings')}
+            onOpenAds={() => setSubView('ads')}
             onLoggedOut={() => {
               setAuthed(false)
               setSubView('dashboard')
@@ -127,6 +129,7 @@ export default function AdminApp() {
         {subView === 'settings' ? (
           <SettingsEditor onDone={() => setSubView('dashboard')} />
         ) : null}
+        {subView === 'ads' ? <AdsManager onBack={() => setSubView('dashboard')} /> : null}
       </main>
     </div>
   )

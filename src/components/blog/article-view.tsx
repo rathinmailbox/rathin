@@ -5,7 +5,7 @@ import { Newspaper } from 'lucide-react'
 import type { Post } from '@/lib/types'
 import { navPath } from '@/lib/nav'
 import { parseTags, stripLeadingH1 } from '@/lib/site'
-import { ArticleMarkdown } from '@/components/blog/article-markdown'
+import { ArticleBody } from '@/components/blog/article-body'
 
 /**
  * ArticleView — Gawker-style article page.
@@ -66,7 +66,7 @@ export function ArticleView({ post, siteName }: { post: Post; siteName: string }
 
       {/* ---- Body (Georgia serif) ---- */}
       <div className="article-body">
-        <ArticleMarkdown content={body} />
+        <ArticleBody postId={post.id} content={body} />
 
         {tags.length > 0 ? (
           <div className="mt-10 flex flex-wrap items-center gap-2">
