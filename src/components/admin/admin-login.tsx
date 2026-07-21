@@ -97,10 +97,6 @@ export function AdminLogin({ onLoggedIn }: { onLoggedIn: () => void }) {
                 'Log in'
               )}
             </Button>
-            <p className="text-center text-xs text-muted-foreground">
-              Default password: <code className="font-mono">admin123</code> — change it via the{' '}
-              <code className="font-mono">ADMIN_PASSWORD</code> environment variable.
-            </p>
           </CardFooter>
         </form>
       </Card>

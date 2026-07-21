@@ -79,7 +79,7 @@ export default function AdminApp() {
             href={navPath('admin')}
             className="flex items-center gap-2 text-sm font-semibold"
           >
-            <span className="font-serif text-base">rahin.blog</span>
+            <span className="font-serif text-base">rathin.blog</span>
             <span className="text-muted-foreground">— Admin</span>
           </a>
           <div className="flex items-center gap-1">

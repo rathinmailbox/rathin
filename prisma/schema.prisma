@@ -18,7 +18,7 @@ model Post {
   excerpt     String?
   content     String   @default("") // Markdown body
   coverImage  String?
-  author      String   @default("Staff")
+  author      String   @default("Rathin")
   category    String   @default("General")
   tags        String   @default("") // comma-separated tags
   published   Boolean  @default(false)
@@ -33,9 +33,9 @@ model Post {
 // Editable site-wide settings (one row, id = "default").
 model SiteSetting {
   id        String   @id @default("default")
-  siteName  String   @default("The Dispatch")
-  tagline   String   @default("Independent stories, sharp perspectives.")
-  about     String   @default("# About\n\nWelcome to our publication. This text is editable from the admin panel — no code required.")
+  siteName  String   @default("rathin.")
+  tagline   String   @default("A blog on critical thought and populist politics.")
+  about     String   @default("# About\n\nWelcome to my blog. I write here bimonthly, of which my chosen definition of "bimonthly" varies by my whim. Conatined here are my inchoate thoughts on heterodox economics, legal theory, sociology, and technology (sometimes all at once). I hope you find the content edifying and the prose bareable.")
   accent    String   @default("#c1272d") // hex accent color
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
