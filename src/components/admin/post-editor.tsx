@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, type ChangeEvent } from 'react'
 import dynamic from 'next/dynamic'
 import {
   ArrowLeft,
@@ -86,6 +86,8 @@ export function PostEditor({ postId, onDone }: { postId: string | null; onDone: 
   const [saving, setSaving] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [aiOpen, setAiOpen] = useState(false)
+  const [coverUploading, setCoverUploading] = useState(false)
+  const coverInputRef = useRef<HTMLInputElement>(null)
   const [aiPrompt, setAiPrompt] = useState('')
   const [aiLoading, setAiLoading] = useState(false)
 
@@ -198,6 +200,38 @@ export function PostEditor({ postId, onDone }: { postId: string | null; onDone: 
     } finally {
       setSaving(false)
       setConfirmDelete(false)
+    }
+  }
+
+  async function handleCoverUpload(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    setCoverUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', file)
+
+      const res = await fetch('/api/admin/upload', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (!res.ok) throw new Error('Upload failed')
+      const data = (await res.json()) as { url?: string }
+      if (!data.url) throw new Error('Missing URL')
+
+      update('coverImage', data.url)
+      toast({ title: 'Cover image uploaded', description: 'The new image is ready to save.' })
+    } catch {
+      toast({
+        title: 'Image upload failed',
+        description: 'Please try again with a different image.',
+        variant: 'destructive',
+      })
+    } finally {
+      setCoverUploading(false)
+      event.target.value = ''
     }
   }
 
@@ -346,6 +380,23 @@ export function PostEditor({ postId, onDone }: { postId: string | null; onDone: 
                 onChange={(e) => update('coverImage', e.target.value)}
                 placeholder="Paste image URL"
               />
+              <input
+                ref={coverInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleCoverUpload}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full"
+                onClick={() => coverInputRef.current?.click()}
+                disabled={coverUploading}
+              >
+                {coverUploading ? <Loader2 className="animate-spin" /> : <ImageIcon />}
+                {coverUploading ? 'Uploading…' : 'Upload image'}
+              </Button>
               <Button
                 type="button"
                 variant="outline"

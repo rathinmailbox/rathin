@@ -3,8 +3,7 @@ import { PrismaClient } from '@prisma/client'
 const db = new PrismaClient()
 
 const TITLE = 'Punk, Style, and the Internet: The Commodification of Subculture'
-const EXCERPT =
-  '
+const EXCERPT = 'A long-form essay about punk style, subculture, and how internet visibility changes the meaning of style.'
 const CONTENT = `Punk, since its inception, has been viewed as the prototypical subculture movement. In their transgressive style, influential music, and anti-establishment attitude, the punk movement—though proclaimed "dead" by the media and punks themselves—has proved itself to be one of the most distinctive and unabashedly political subcultures. Punk band the Sex Pistols are arguably the most important musical group in defining the style and attitude of the punk movement. To rock critic Greil Marcus, "the Sex Pistols were meant to be a force that would set the world on its ear… and finally unite music and politics"[[Greil Marcus, "Punk (1979)," GreilMarcus.net, 8 Sept. 2014.]].
 
 Today, the role that popular music subculture plays has changed significantly since its heyday. This stark change can be seen in a major demonstration of the Sex Pistols' attitude dubbed "The Today Incident." Using Dick Hebdige's theory of subcultural style, this paper compares the Pistols' public persona and the movement surrounding it with modern popular music media and culture. With contemporary accounts of media culture in the internet age, this paper argues that though the internet has increased accessibility to historically transgressive musical subcultures, social media platforms disincentivize transgressive rhetoric of such subcultures, thus disempowering cultural and political movements long-associated with music genres like punk. While there has been much academic coverage of punk music's relevance as a subculture, there has been scant retrospective research on the transformation of music subculture, especially within its interaction with social media.
