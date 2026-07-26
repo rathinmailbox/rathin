@@ -924,8 +924,11 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  /* Keep the ad visibly scrolling, just slower/gentler — don't freeze it,
+     since many mobile users have "Reduce Motion" on by default and a frozen
+     banner reads as broken. */
   .marquee-ad__track {
-    animation: none;
-    transform: translateX(0);
+    animation-timing-function: linear;
+    animation-duration: calc(var(--marquee-duration, 20s) * 2.5);
   }
 }

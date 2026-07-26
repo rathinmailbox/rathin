@@ -55,10 +55,21 @@ export function MarqueeAd({
     }
 
     recompute()
+    // On mobile the first layout pass can report 0 width (fonts/web fonts
+    // still loading), so re-check on the next couple of frames to guarantee
+    // the two halves fill the viewport and the loop stays seamless.
+    let raf1 = requestAnimationFrame(recompute)
+    let raf2 = requestAnimationFrame(() => requestAnimationFrame(recompute))
+    // Re-measure once web fonts have settled, since item width depends on them.
+    const onFonts = document.fonts?.ready.then(recompute).catch(() => {})
     const ro = new ResizeObserver(recompute)
     ro.observe(container)
     ro.observe(firstItem)
-    return () => ro.disconnect()
+    return () => {
+      cancelAnimationFrame(raf1)
+      cancelAnimationFrame(raf2)
+      ro.disconnect()
+    }
   }, [text])
 
   if (!text) return null
@@ -81,7 +92,13 @@ export function MarqueeAd({
   const track = (
     <div
       className={`marquee-ad__track ${className}`}
-      style={{ animationDuration: `${Math.max(2, speed)}s` }}
+      style={
+        {
+          animationDuration: `${Math.max(2, speed)}s`,
+          // Exposed so the prefers-reduced-motion rule can scale it.
+          '--marquee-duration': `${Math.max(2, speed)}s`,
+        } as React.CSSProperties
+      }
     >
       {items}
     </div>
