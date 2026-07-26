@@ -8,13 +8,14 @@ import { MarqueeAd } from './marquee-ad'
 
 /**
  * ArticleBody — renders the article markdown and inserts inline scrolling ads
- * at chosen paragraph positions.
+ * after chosen paragraph positions.
  *
  * Inline ads are fetched for this specific post. The body is split into
  * paragraph blocks on blank lines (≥2 newlines), rendered as separate
  * `<ArticleMarkdown>` blocks. After the 1-based paragraph whose index equals
- * an ad's `paragraphNum`, the ad is inserted. `paragraphNum = 0` puts an ad
- * at the very top of the body.
+ * an ad's `paragraphNum`, the ad is inserted. `paragraphNum = 0` (top of
+ * body) is handled separately by <ArticleTopAd>, rendered as a sibling of
+ * the hero so it sits flush against it — NOT here.
  *
  * Ads are non-blocking: the marquee track is `pointer-events: none`, so it
  * never interferes with reading or selection.
@@ -48,17 +49,16 @@ export function ArticleBody({ postId, content }: { postId: string; content: stri
     : []
 
   // Group ads by their target paragraph number for quick lookup.
+  // NOTE: paragraphNum = 0 (top of body) is rendered by <ArticleTopAd> as a
+  // sibling of the hero, so we skip it here and only keep paragraph ads.
   const adsByPosition = new Map<number, Advertisement[]>()
   for (const ad of ads) {
     const pos = ad.paragraphNum ?? -1
-    if (pos < 0) continue
+    if (pos <= 0) continue
     const list = adsByPosition.get(pos)
     if (list) list.push(ad)
     else adsByPosition.set(pos, [ad])
   }
-
-  // paragraphNum = 0 means "top of body".
-  const topAds = adsByPosition.get(0) ?? []
 
   return (
     // NOTE: each <ArticleMarkdown> wraps its own .prose-article internally,
@@ -67,21 +67,6 @@ export function ArticleBody({ postId, content }: { postId: string; content: stri
     // since their containing block is the centered .article-body rather than
     // the narrower, left-aligned .prose-article column.
     <div className="article-body-content">
-      {topAds.length > 0 ? (
-        <div className="inline-ad-fullbleed">
-          {topAds.map((ad) => (
-            <MarqueeAd
-              key={`top-${ad.id}`}
-              text={ad.text}
-              link={ad.link}
-              bgColor={ad.bgColor}
-              textColor={ad.textColor}
-              speed={ad.speed}
-            />
-          ))}
-        </div>
-      ) : null}
-
       {blocks.map((block, i) => {
         const paragraphNumber = i + 1 // 1-based
         const afterAds = adsByPosition.get(paragraphNumber) ?? []

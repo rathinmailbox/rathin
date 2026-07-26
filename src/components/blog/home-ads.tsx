@@ -5,20 +5,30 @@ import { useEffect, useState } from 'react'
 import type { Advertisement } from '@/lib/types'
 import { MarqueeAd } from './marquee-ad'
 
+interface HomeAdsProps {
+  /**
+   * Which homepage slot to fill.
+   *  - 'home'     (default): stacked at the bottom of the page
+   *  - 'home-top': stacked right below the masthead logo
+   */
+  placement?: 'home' | 'home-top'
+}
+
 /**
- * HomeAds — fetches enabled homepage ads and stacks them vertically.
+ * HomeAds — fetches enabled homepage ads for the given slot and stacks them
+ * vertically.
  *
  * Renders nothing (not even a wrapper) when there are no ads, so the page
  * looks unchanged when the feature isn't in use.
  */
-export function HomeAds() {
+export function HomeAds({ placement = 'home' }: HomeAdsProps = {}) {
   const [ads, setAds] = useState<Advertisement[] | null>(null)
 
   useEffect(() => {
     let cancelled = false
     void (async () => {
       try {
-        const res = await fetch('/api/advertisements?placement=home', {
+        const res = await fetch(`/api/advertisements?placement=${placement}`, {
           cache: 'no-store',
         })
         if (!res.ok) throw new Error('ad fetch failed')
@@ -31,7 +41,7 @@ export function HomeAds() {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [placement])
 
   if (!ads || ads.length === 0) return null
 

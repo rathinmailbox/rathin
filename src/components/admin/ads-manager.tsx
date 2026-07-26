@@ -200,6 +200,8 @@ export function AdsManager({ onBack }: { onBack: () => void }) {
                   <TableCell>
                     {ad.placement === 'inline' ? (
                       <Badge variant="secondary">Inline</Badge>
+                    ) : ad.placement === 'home-top' ? (
+                      <Badge variant="outline">Homepage · top</Badge>
                     ) : (
                       <Badge variant="outline">Homepage</Badge>
                     )}

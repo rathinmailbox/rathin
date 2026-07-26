@@ -361,6 +361,9 @@ export function PostEditor({ postId, onDone }: { postId: string | null; onDone: 
           {/* Cover image */}
           <section className="rounded-lg border bg-card p-4">
             <h3 className="mb-3 text-sm font-semibold">Cover image</h3>
+            <p className="mb-3 text-xs text-muted-foreground">
+              Optional. Leave empty for a centered, text-only article header.
+            </p>
             <div className="space-y-3">
               <div className="aspect-video w-full overflow-hidden rounded-md border bg-muted">
                 {form.coverImage ? (
@@ -380,6 +383,17 @@ export function PostEditor({ postId, onDone }: { postId: string | null; onDone: 
                 onChange={(e) => update('coverImage', e.target.value)}
                 placeholder="Paste image URL"
               />
+              {form.coverImage ? (
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full text-destructive hover:text-destructive"
+                  onClick={() => update('coverImage', '')}
+                  disabled={coverUploading}
+                >
+                  <Trash2 /> Remove image
+                </Button>
+              ) : null}
               <input
                 ref={coverInputRef}
                 type="file"

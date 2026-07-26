@@ -265,12 +265,16 @@ export function AdsEditor({
             <Label htmlFor="ad-placement">Placement</Label>
             <Select
               value={draft.placement}
-              onValueChange={(v) => update('placement', v === 'inline' ? 'inline' : 'home')}
+              onValueChange={(v) => {
+                const next = v === 'inline' ? 'inline' : v === 'home-top' ? 'home-top' : 'home'
+                update('placement', next)
+              }}
             >
               <SelectTrigger id="ad-placement">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="home-top">Homepage — below the logo</SelectItem>
                 <SelectItem value="home">Homepage — stacked at bottom</SelectItem>
                 <SelectItem value="inline">Inline — inside an article</SelectItem>
               </SelectContent>
