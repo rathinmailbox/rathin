@@ -23,8 +23,12 @@ export interface SiteSettings {
   accent: string
 }
 
-/** Where a scrolling ad can appear. */
-export type AdPlacement = 'home' | 'inline'
+/** Where a scrolling ad can appear.
+ *  - home:     stacked at the bottom of the homepage
+ *  - home-top: stacked right below the masthead logo on the homepage
+ *  - inline:   inside a specific article at a chosen paragraph
+ */
+export type AdPlacement = 'home' | 'home-top' | 'inline'
 
 /** A scrolling advertisement, with dates serialized as ISO strings. */
 export interface Advertisement {

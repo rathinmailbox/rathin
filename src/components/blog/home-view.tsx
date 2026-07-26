@@ -24,6 +24,10 @@ export function HomeView({ posts }: { posts: Post[] }) {
 
   return (
     <>
+      {/* Scrolling homepage ads stacked right below the masthead logo.
+          <main> has no padding and MarqueeAd has no top margin, so this sits
+          flush against the wordmark. Renders nothing when there are no ads. */}
+      <HomeAds placement="home-top" />
       <div className="mx-auto max-w-3xl px-4 py-8">
         {posts.map((post) => (
           <Link key={post.id} href={navPath('article', { slug: post.slug })} className="news-item">

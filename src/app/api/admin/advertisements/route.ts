@@ -26,7 +26,12 @@ function toAd(row: {
     bgColor: row.bgColor,
     textColor: row.textColor,
     speed: row.speed,
-    placement: row.placement === 'inline' ? 'inline' : 'home',
+    placement:
+      row.placement === 'inline'
+        ? 'inline'
+        : row.placement === 'home-top'
+          ? 'home-top'
+          : 'home',
     postId: row.postId,
     paragraphNum: row.paragraphNum,
     enabled: row.enabled,
@@ -71,7 +76,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Ad text is required' }, { status: 400 })
   }
 
-  const placement = body.placement === 'inline' ? 'inline' : 'home'
+  const placement =
+    body.placement === 'inline'
+      ? 'inline'
+      : body.placement === 'home-top'
+        ? 'home-top'
+        : 'home'
   const postId =
     placement === 'inline' && typeof body.postId === 'string' && body.postId
       ? body.postId

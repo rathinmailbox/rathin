@@ -25,7 +25,12 @@ function toAd(row: {
     bgColor: row.bgColor,
     textColor: row.textColor,
     speed: row.speed,
-    placement: row.placement === 'inline' ? 'inline' : 'home',
+    placement:
+      row.placement === 'inline'
+        ? 'inline'
+        : row.placement === 'home-top'
+          ? 'home-top'
+          : 'home',
     postId: row.postId,
     paragraphNum: row.paragraphNum,
     enabled: row.enabled,
@@ -39,7 +44,7 @@ function toAd(row: {
  * GET /api/advertisements — public list of enabled ads.
  *
  * Query params:
- *   placement = "home" | "inline"  (default: "home")
+ *   placement = "home" | "home-top" | "inline"  (default: "home")
  *   postId    = post id            (only meaningful for inline)
  *
  * Always filters to enabled=true, ordered by `order` then createdAt.
@@ -47,7 +52,12 @@ function toAd(row: {
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const placementParam = searchParams.get('placement') ?? 'home'
-  const placement = placementParam === 'inline' ? 'inline' : 'home'
+  const placement =
+    placementParam === 'inline'
+      ? 'inline'
+      : placementParam === 'home-top'
+        ? 'home-top'
+        : 'home'
   const postId = searchParams.get('postId') ?? undefined
 
   const rows = await db.advertisement.findMany({

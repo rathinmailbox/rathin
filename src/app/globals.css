@@ -48,7 +48,7 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: oklch(0.965 0 0); /* slight gray page background */
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -278,9 +278,10 @@
 
 /* ---- Gawker-style redesign ---- */
 
-/* Flat barely-gray page background (applied via the Shell wrapper). */
+/* Flat barely-gray page background (applied via the Shell wrapper). Uses the
+   --background token so it stays in sync with <body> and adapts in dark mode. */
 .page-bg {
-  background-color: #f5f5f5;
+  background-color: var(--background);
 }
 
 /* Giant masthead wordmark. SERIF + extra-extra-extra bold (900), sized so
@@ -477,7 +478,8 @@
 /* ---- Article hero (full-screen, wordmark at top, inset image) ---- */
 
 /* The hero fills the viewport. Slight red tint. Flex column: wordmark at
-   the top, then image + title below. Padding insets the content. */
+   the top, then image + title below. Padding insets the content. The bottom
+   padding is 0 so a top-of-article ad (or the body) butts flush beneath it. */
 .article-hero {
   position: relative;
   min-height: 100vh;
@@ -485,7 +487,7 @@
   flex-direction: column;
   background-color: rgba(193, 39, 45, 0.045);
   overflow: hidden;
-  padding: 2rem;
+  padding: 2rem 2rem 0;
   gap: 1.5rem;
 }
 
@@ -626,6 +628,118 @@
   .article-byline-grid { font-size: 1.1rem; }
 }
 
+/* ---- Compact centered typographic hero (articles WITHOUT a cover image) ----
+   Not full-screen — sized to its content. The title is relatively large
+   (not absurd) in the Gawker display language, and centered with the
+   subtitle/dek and byline. Generous vertical padding separates it from the
+   wordmark above. */
+.article-hero-text {
+  min-height: 0; /* override the full-viewport .article-hero min-height */
+  padding: 2.5rem 1.5rem 0; /* flush bottom so a top ad (or body) butts directly */
+}
+.article-hero-text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centered title + subtitle */
+  text-align: center;
+  gap: 1.25rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 3rem 1rem 3.5rem; /* generous breathing room under the wordmark */
+}
+.article-kicker {
+  font-family: var(--fontFamilySansSerif);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--brand);
+  margin: 0;
+}
+/* Relatively large centered title — bigger than the image-hero H1 but not
+   absurd. Heavy uppercase sans, tight tracking, allowed to wrap. */
+.article-h1-display {
+  font-family: var(--fontFamilyHeadingSansSerif);
+  font-weight: var(--fontWeightBold);
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  margin: 0;
+  color: #000;
+  max-width: 18ch;
+  word-break: break-word;
+}
+/* Dek (subtitle) sits centered beneath the title at editorial scale. */
+.article-hero-text-content .article-dek {
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  max-width: 56ch;
+  margin: 0;
+  line-height: 1.4;
+}
+/* Single-line byline row for the text hero. */
+.article-byline-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--fontFamilyHeadingSerif);
+  font-weight: var(--fontWeightLight);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.8rem;
+  color: var(--brand);
+}
+.article-byline-row .byline-label {
+  font-family: var(--fontFamilySansSerif);
+  text-transform: none;
+  letter-spacing: 0.02em;
+  font-size: 0.55rem;
+  color: oklch(0.45 0 0);
+  margin-right: 0.2rem;
+  font-weight: normal;
+}
+.article-byline-row .byline-sep {
+  opacity: 0.5;
+}
+@media (min-width: 768px) {
+  .article-byline-row { font-size: 1rem; }
+}
+
+/* ---- Tags row at the top of the article hero (both variants) ---- */
+.article-hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 0.5rem;
+}
+.article-hero-tags--center {
+  justify-content: center;
+}
+.article-tag {
+  font-family: var(--fontFamilySansSerif);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: oklch(0.4 0 0);
+  padding: 0.2rem 0.55rem;
+  border: 1px solid oklch(0.82 0 0);
+  border-radius: 999px;
+  background: oklch(0.99 0 0);
+  white-space: nowrap;
+}
+.dark .article-tag {
+  color: oklch(0.78 0 0);
+  border-color: oklch(0.35 0 0);
+  background: oklch(0.2 0 0);
+}
+
 /* Article body — Georgia serif (same as the dek/subtitle). The container is
    wide enough to hold a text column + a sidenote margin on the right. */
 .article-body {
@@ -656,13 +770,29 @@
 .inline-ad-fullbleed {
   width: 100vw;
   max-width: 100vw;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 }
 .inline-ad-fullbleed > * + * {
   margin-top: 0; /* stacked ads sit flush against each other */
+}
+/* Top-of-article ad strip. Rendered by <ArticleTopAd> as a SIBLING between
+   the hero and the body, so it sits flush against the bottom of the hero
+   (zero gap) without any negative-margin hack. Full viewport width via the
+   same 50vw re-centering trick; a small bottom margin keeps it clear of the
+   first paragraph. Stacked top ads sit flush against each other. */
+.article-top-ad {
+  width: 100vw;
+  max-width: 100vw;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+.article-top-ad > * + * {
+  margin-top: 0;
 }
 .article-body h1,
 .article-body h2,
@@ -818,10 +948,16 @@
 .dark .article-h1 {
   color: oklch(0.97 0 0);
 }
+.dark .article-h1-display {
+  color: oklch(0.97 0 0);
+}
 .dark .article-dek {
   color: oklch(0.78 0 0);
 }
 .dark .article-byline-grid .byline-label {
+  color: oklch(0.62 0 0);
+}
+.dark .article-byline-row .byline-label {
   color: oklch(0.62 0 0);
 }
 .dark .article-body {

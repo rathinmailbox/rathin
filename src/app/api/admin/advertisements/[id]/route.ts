@@ -26,7 +26,12 @@ function toAd(row: {
     bgColor: row.bgColor,
     textColor: row.textColor,
     speed: row.speed,
-    placement: row.placement === 'inline' ? 'inline' : 'home',
+    placement:
+      row.placement === 'inline'
+        ? 'inline'
+        : row.placement === 'home-top'
+          ? 'home-top'
+          : 'home',
     postId: row.postId,
     paragraphNum: row.paragraphNum,
     enabled: row.enabled,
@@ -101,7 +106,12 @@ export async function PUT(
 
   // Placement changes also drive postId / paragraphNum.
   if (typeof body.placement === 'string') {
-    const placement = body.placement === 'inline' ? 'inline' : 'home'
+    const placement =
+      body.placement === 'inline'
+        ? 'inline'
+        : body.placement === 'home-top'
+          ? 'home-top'
+          : 'home'
     data.placement = placement
 
     if (placement === 'inline') {
@@ -116,7 +126,7 @@ export async function PUT(
         data.paragraphNum = Math.max(0, Math.round(body.paragraphNum))
       }
     } else {
-      // Moving to home clears inline-only fields.
+      // Moving to home / home-top clears inline-only fields.
       data.postId = null
       data.paragraphNum = null
     }
