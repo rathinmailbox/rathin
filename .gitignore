@@ -90,3 +90,6 @@ server.log
 # Dev test scripts
 /scripts/test-remark.ts
 prisma/db/custom.db
+prisma/db/custom.db
+*.db
+
