@@ -7,6 +7,7 @@ import { AboutView } from '@/components/blog/about-view'
 import AdminApp from '@/components/admin/admin-app'
 import type { Post, View } from '@/lib/types'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 
 /** Serialize a Prisma post row to the client-safe Post type (ISO dates). */
 function toPost(p: {
@@ -58,6 +59,9 @@ export default async function Page({
 }) {
   const sp = await searchParams
   const rawView = sp.p
+  if (rawView === 'drafts') {
+    redirect('/drafts')
+  }
   const view: View = VALID_VIEWS.includes(rawView as View)
     ? (rawView as View)
     : 'home'

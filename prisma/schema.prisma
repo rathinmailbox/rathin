@@ -65,3 +65,11 @@ model Advertisement {
   @@index([enabled, placement, order])
   @@index([postId])
 }
+
+// Continuous stream of draft articles / notes for /drafts.
+model DraftPage {
+  id        String   @id @default("default")
+  content   String   // The continuous markdown text with separators
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}

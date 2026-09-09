@@ -1065,3 +1065,48 @@
     transform: translateX(0);
   }
 }
+
+/* ---- Drafts Stream Styling ---- */
+.drafts-stream {
+  counter-reset: sidenote-counter;
+}
+.drafts-stream input.margin-toggle {
+  display: none;
+  opacity: 0;
+  position: absolute;
+}
+.drafts-stream label.margin-toggle {
+  display: inline;
+}
+.drafts-stream label.sidenote-number {
+  counter-increment: sidenote-counter;
+}
+.drafts-stream label.sidenote-number::after {
+  content: counter(sidenote-counter);
+  font-size: 0.7em;
+  vertical-align: super;
+  line-height: 0;
+  color: var(--brand);
+  cursor: pointer;
+  margin-left: 0.1em;
+  font-weight: 600;
+}
+.drafts-stream .sidenote {
+  display: inline-block;
+  margin: 0.5rem 0;
+  padding: 0.4rem 0.75rem;
+  border-left: 2px solid var(--brand);
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 0 0.35rem 0.35rem 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: oklch(0.35 0 0);
+  font-family: var(--fontFamilySerif), Georgia, serif;
+}
+.dark .drafts-stream .sidenote {
+  background: rgba(255, 255, 255, 0.05);
+  color: oklch(0.8 0 0);
+}
+.drafts-stream input.margin-toggle:checked + .sidenote {
+  display: inline-block;
+}

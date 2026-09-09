@@ -15,6 +15,7 @@ export function SiteFooter({ siteName }: { siteName: string; tagline?: string })
           <Link href={navPath('home')}>Home</Link>
           <Link href={navPath('about')}>About</Link>
           <Link href="/feed">Feed</Link>
+          <Link href={navPath('drafts')}>Drafts</Link>
         </nav>
         <p className="footer-copy mt-8">
           &copy; {year} {siteName}

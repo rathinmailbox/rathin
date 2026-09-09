@@ -47,4 +47,4 @@ export interface Advertisement {
   updatedAt: string
 }
 
-export type View = 'home' | 'article' | 'about' | 'admin'
+export type View = 'home' | 'article' | 'about' | 'admin' | 'drafts'
