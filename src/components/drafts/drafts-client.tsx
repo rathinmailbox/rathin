@@ -283,13 +283,62 @@ export function DraftsClient({
     }, 10)
   }, [content])
 
+  const formatCurrentDateTime = () => {
+    const now = new Date()
+    const datePart = now.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    })
+    const timePart = now.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    })
+    return `${datePart} at ${timePart}`
+  }
+
   const insertNewDraftSection = () => {
-    const nextNum = String(stats.draftSections + 1).padStart(2, '0')
-    const template = `\n\n---\n\n## ${nextNum}. New Draft Title\n*Date: ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} • Category: General • Status: Working Draft*\n\nDraft content goes here...\n`
-    handleContentChange(content + template)
+    const timestamp = formatCurrentDateTime()
+    const newSectionHeader = `## New Draft Title\n*Date: ${timestamp} • Category: General • Status: Working Draft*\n\nDraft content goes here...\n\n---\n\n`
+
+    let updatedContent = ''
+    let selectionStart = 3
+    let selectionEnd = 18
+
+    // Check if the document has a top-level # Title and an introductory separator
+    const firstSepMatch = content.match(/(\r?\n|^)---(\r?\n|$)/)
+    const firstH1Match = content.match(/(\r?\n|^)#\s+/)
+
+    if (
+      firstSepMatch &&
+      firstSepMatch.index !== undefined &&
+      firstH1Match &&
+      firstH1Match.index !== undefined &&
+      firstH1Match.index < firstSepMatch.index
+    ) {
+      // Keep the top title & intro intact, and insert this new draft right below the first separator
+      const insertIdx = firstSepMatch.index + firstSepMatch[0].length
+      const before = content.slice(0, insertIdx)
+      const after = content.slice(insertIdx).replace(/^\r?\n+/, '')
+
+      updatedContent = `${before}\n## New Draft Title\n*Date: ${timestamp} • Category: General • Status: Working Draft*\n\nDraft content goes here...\n\n---\n\n${after}`
+      selectionStart = insertIdx + 4
+      selectionEnd = selectionStart + 15
+    } else {
+      // Prepend right at the top of the document
+      updatedContent = `${newSectionHeader}${content.replace(/^\r?\n+/, '')}`
+      selectionStart = 3
+      selectionEnd = 18
+    }
+
+    handleContentChange(updatedContent)
+
     setTimeout(() => {
       if (textareaRef.current) {
-        textareaRef.current.scrollTop = textareaRef.current.scrollHeight
+        textareaRef.current.focus()
+        textareaRef.current.scrollTop = 0
+        textareaRef.current.setSelectionRange(selectionStart, selectionEnd)
       }
     }, 50)
   }
@@ -549,10 +598,10 @@ export function DraftsClient({
                     type="button"
                     onClick={insertNewDraftSection}
                     className="flex items-center gap-1 px-2.5 py-1 rounded bg-amber-500/10 text-amber-800 dark:text-amber-300 hover:bg-amber-500/20 font-medium"
-                    title="Add new draft section"
+                    title="Add new draft section at top with current timestamp"
                   >
                     <PlusCircle className="h-3.5 w-3.5" />
-                    <span>New Section</span>
+                    <span>New Section (Top)</span>
                   </button>
                 </div>
               )}
@@ -719,9 +768,10 @@ export function DraftsClient({
                   type="button"
                   onClick={insertNewDraftSection}
                   className="flex items-center gap-1 text-amber-600 dark:text-amber-400 font-medium hover:underline"
+                  title="Add new draft section at top with current timestamp"
                 >
                   <PlusCircle className="h-3.5 w-3.5" />
-                  <span>Insert New Draft</span>
+                  <span>Insert Draft at Top</span>
                 </button>
               </div>
               <textarea

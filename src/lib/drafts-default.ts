@@ -5,7 +5,7 @@ export const DEFAULT_DRAFTS_CONTENT = `# Working Drafts & Field Notes
 ---
 
 ## 01. The Counter-Intuitive Architecture of Modern Populism
-*Date: September 2026 • Category: Political Economy • Status: Early Draft*
+*Date: September 8, 2026 at 9:15 PM • Category: Political Economy • Status: Early Draft*
 
 The standard liberal critique of contemporary populist movements posits them as purely reactionary spasms—nostalgic convulsions against the inevitable march of cosmopolitan technocracy. This diagnosis is intellectually comforting but structurally blind.
 
@@ -21,7 +21,7 @@ Key questions to resolve before expanding into an essay:
 ---
 
 ## 02. Technocracy, Algorithmic Discretion, and Due Process
-*Date: August 2026 • Category: Legal Theory • Status: Mid-stage Revision*
+*Date: August 24, 2026 at 4:30 PM • Category: Legal Theory • Status: Mid-stage Revision*
 
 The transition from administrative discretion to algorithmic governance is routinely defended under the rubric of neutrality and computational efficiency. But administrative law has spent two centuries constructing procedural safeguards around human arbitrariness—notice, hearing, explanation of reasons, and judicial review.
 
@@ -44,7 +44,7 @@ def evaluate_administrative_decision(decision, record):
 ---
 
 ## 03. Fragments on Heterodox Value Theory
-*Date: July 2026 • Category: Economics • Status: Raw Notes*
+*Date: July 19, 2026 at 11:45 AM • Category: Economics • Status: Raw Notes*
 
 Marginal utility theory solved the diamond-water paradox only by reducing economic value to subjective psychological valuation. While powerful for price clearing at the margin, it leaves macro-structural questions unanswered:
 
